@@ -5,7 +5,7 @@ require 'json'
 
 class Nbascraper
 
-  attr_reader :data, :schedule, :scores, :player, :game_urls
+  attr_reader :data, :schedule, :game_urls
 
   def self.today
     puts "*****Today's games*****"
@@ -23,10 +23,12 @@ class Nbascraper
   end
 
   def self.get_summary
+    "***********************"
     @game_urls.each_with_index {|game,i| puts "#{i+1}. #{game}"} 
     game_number = 0
+    puts "***********************"
     until game_number.between?(1,(@game_urls.size)) 
-      puts "Please enter 1 - #{@game_urls.size}"
+      puts "Please select a game 1 - #{@game_urls.size}"
       game_number = gets.strip.to_i
     end
     scrape_summary(@game_urls[game_number-1])

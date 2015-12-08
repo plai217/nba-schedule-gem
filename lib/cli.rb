@@ -3,6 +3,10 @@ require 'pry'
 
 class Nbascraper::CLI
 
+  def call
+    start
+  end
+
   def start
     Nbascraper.today
     list
