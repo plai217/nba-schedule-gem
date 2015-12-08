@@ -1,9 +1,4 @@
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
-require 'json'
-
-class Nbascraper
+class Nbascores::Nbascrape
 
   attr_reader :data, :schedule, :game_urls
 

@@ -1,14 +1,11 @@
-require_relative "../lib/nbascraper.rb"
-require 'pry'
-
-class Nbascraper::CLI
+class Nbascores::CLI
 
   def call
     start
   end
 
   def start
-    Nbascraper.today
+    Nbascores::Nbascrape.today
     list
   end
 
@@ -22,11 +19,11 @@ class Nbascraper::CLI
       selection = gets.strip
       case selection
       when "1"
-        Nbascraper.today
+        Nbascores::Nbascrape.today
       when "2"
         new_date
       when "3"
-        Nbascraper.get_summary
+        Nbascores::Nbascrape.get_summary
       when "5"
         puts "Good-bye"
       else
@@ -43,7 +40,7 @@ class Nbascraper::CLI
     puts "Please enter day of month in DD format"
     day = gets.strip
     date = "#{year}#{month}#{day}"
-    Nbascraper.get_games(date)
+    Nbascores::Nbascrape.get_games(date)
   end
 
 end
