@@ -40,23 +40,13 @@ class Nbascraper
 
   def self.show_schedule_scores
     @data.each do |game|
-      if game["time"] > Time.now.strftime("%H%M") && game["date"] >= Time.now.strftime("%Y%m%d")
-        puts game_start(game["id"])
-      else
         puts game_score(game["id"])
-      end
-    end
-  end
-
-  def self.game_start(id)
-    @data.each do |game| 
-      return "#{game["visitor"]["nickname"]} at #{game["home"]["nickname"]} game starts #{game["time"]}" if game["id"] == id
     end
   end
 
   def self.game_score(id)
     @data.each do |game| 
-      return "#{game["visitor"]["nickname"]} - #{game["visitor"]["score"]} #{game["home"]["nickname"]} - #{game["home"]["score"]} - #{game["period_time"]["period_status"]}" if game["id"] == id
+      return "#{game["visitor"]["nickname"]} - #{game["visitor"]["score"]} #{game["home"]["nickname"]} - #{game["home"]["score"]} #{game["period_time"]["period_status"]}" if game["id"] == id
     end
   end
 
