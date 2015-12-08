@@ -1,7 +1,5 @@
 require_relative "../lib/nbascraper.rb"
-require 'nokogiri'
 require 'pry'
-require 'open-uri'
 
 class Nbascraper::CLI
 

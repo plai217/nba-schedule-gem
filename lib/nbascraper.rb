@@ -56,7 +56,7 @@ class Nbascraper
 
   def self.game_score(id)
     @data.each do |game| 
-      return "#{game["visitor"]["nickname"]} - #{game["visitor"]["score"]} #{game["home"]["nickname"]} - #{game["home"]["score"]}" if game["id"] == id
+      return "#{game["visitor"]["nickname"]} - #{game["visitor"]["score"]} #{game["home"]["nickname"]} - #{game["home"]["score"]} - #{game["period_time"]["period_status"]}" if game["id"] == id
     end
   end
 
