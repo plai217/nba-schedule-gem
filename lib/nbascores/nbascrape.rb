@@ -18,15 +18,21 @@ class Nbascores::Nbascrape
   end
 
   def self.get_summary
-    "***********************"
-    @game_urls.each_with_index {|game,i| puts "#{i+1}. #{game}"} 
-    game_number = 0
-    puts "***********************"
-    until game_number.between?(1,(@game_urls.size)) 
-      puts "Please select a game 1 - #{@game_urls.size}"
-      game_number = gets.strip.to_i
+    if @game_urls[0] == nil
+      puts "***********************"
+      puts "No summaries available"
+      puts "***********************"
+    else
+      puts "***********************"
+      @game_urls.each_with_index {|game,i| puts "#{i+1}. #{game}"} 
+      puts "***********************"
+      game_number = 0
+      until game_number.between?(1,(@game_urls.size)) 
+        puts "Please select a game 1 - #{@game_urls.size}"
+        game_number = gets.strip.to_i
+      end
+      scrape_summary(@game_urls[game_number-1])
     end
-    scrape_summary(@game_urls[game_number-1])
   end
 
   def self.get_data(date)
