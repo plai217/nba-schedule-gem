@@ -23,7 +23,7 @@ class Nbascores::Nbascrape
 
   def self.scrape(date)
     url = "http://data.nba.com/data/1h/json/cms/noseason/scoreboard/#{date}/games.json"
-    doc = JSON.parse(Nokogiri::HTML(open(url))) 
+    doc = JSON.parse(open(url).read)
     if doc["sports_content"]["games"]["game"] != nil 
       doc["sports_content"]["games"]["game"].each do |game|
         new(game["visitor"]["nickname"],game["home"]["nickname"],game["period_time"]["period_status"],game["game_url"],game["visitor"]["score"],game["home"]["score"])
