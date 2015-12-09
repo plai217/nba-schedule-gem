@@ -32,11 +32,16 @@ class Nbascores::Nbascrape
   end 
 
   def summary_scrape
-    doc = Nokogiri::HTML(open("http://www.nba.com/games/#{url}/gameinfo.html?ls=iref:nba:scoreboard"))
-    if doc.css("#nbaGIRecap2 p").text == ""
-      @summary = doc.css("#nbaGIPreview p").text
+    begin
+      doc = Nokogiri::HTML(open("http://www.nba.com/games/#{url}/gameinfo.html?ls=iref:nba:scoreboard")) 
+    rescue OpenURI::HTTPError
+      @summary = "No recap available"
     else
-      @summary = doc.css("#nbaGIRecap2 p").text
+      if doc.css("#nbaGIRecap2 p").text == ""
+        @summary = doc.css("#nbaGIPreview p").text
+      else
+        @summary = doc.css("#nbaGIRecap2 p").text
+      end
     end
   end
 
