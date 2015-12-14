@@ -1,3 +1,5 @@
+require_relative '../nbascores/nba_stat.rb'
+
 class Nbascores::CLI
 
   def call
@@ -14,13 +16,12 @@ class Nbascores::CLI
       puts "*************************"
       case selection
       when "1"
-        Nbascores::Nbascrape.clear
         show_score(today)
-        Nbascores::Nbascrape.all != [] ? show_summary : (puts "No games or invalid date")
+        NBAStat.find_by_date(today) != [] ? show_summary(today) : (puts "No games or invalid date")
       when "2"
-        Nbascores::Nbascrape.clear
-        show_score(newdate)
-        Nbascores::Nbascrape.all != [] ? show_summary : (puts "No games or invalid date")
+        date = newdate
+        show_score(date)
+        NBAStat.find_by_date(date) != [] ? show_summary(date) : (puts "No games or invalid date")
       when "3"
         puts "Good-bye"
       else
@@ -47,25 +48,25 @@ class Nbascores::CLI
   end
 
   def show_score(date)
-    Nbascores::Nbascrape.scrape(date) 
-    Nbascores::Nbascrape.all.each_with_index do |game,i|
+    Nbascores::Nbascrape.scrape(date)
+    NBAStat.find_by_date(date).each_with_index do |game,i|
       puts "#{i+1}. #{game.away} - #{game.away_score} #{game.home} - #{game.home_score} #{game.period}"
     end
     puts "*************************"
   end
 
-  def show_summary
+  def show_summary(date)
     selection = ""
-    until selection == Nbascores::Nbascrape.all.size+1
-      puts "Enter 1-#{Nbascores::Nbascrape.all.size} to see the game's preview or recap"
-      puts "Enter #{(Nbascores::Nbascrape.all.size+1).to_s} to return to main menu"
+    until selection == NBAStat.find_by_date(date).size+1
+      puts "Enter 1-#{NBAStat.find_by_date(date).size} to see the game's preview or recap"
+      puts "Enter #{(NBAStat.find_by_date(date).size+1).to_s} to return to main menu"
       selection = gets.strip.to_i
       case selection
-      when 1..Nbascores::Nbascrape.all.size
+      when 1..NBAStat.find_by_date(date).size
         puts "*************************"
-        puts Nbascores::Nbascrape.all[selection-1].summary_scrape
+        puts NBAStat.find_by_date(date)[selection-1].summary_scrape
         puts "*************************"
-      when Nbascores::Nbascrape.all.size+1
+      when NBAStat.find_by_date(date).size+1
         #returns to main menu
       else
         puts "*************************"
