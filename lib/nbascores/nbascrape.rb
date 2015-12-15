@@ -6,9 +6,9 @@ class Nbascores::Nbascrape
     if doc["sports_content"]["games"]["game"] != nil 
       doc["sports_content"]["games"]["game"].each do |game|
         if NBAStat.game_exists(game["game_url"])
-          NBAStat.find_by_url(url).away_score = game["visitor"]["score"]
-          NBAStat.find_by_url(url).home_score = game["home"]["score"]
-          NBAStat.find_by_url(url).period = game["period_time"]["period_status"]
+          NBAStat.find_by_url(game["game_url"]).away_score = game["visitor"]["score"]
+          NBAStat.find_by_url(game["game_url"]).home_score = game["home"]["score"]
+          NBAStat.find_by_url(game["game_url"]).period = game["period_time"]["period_status"]
         else
           NBAStat.new({:away =>  game["visitor"]["nickname"],
               :home => game["home"]["nickname"],

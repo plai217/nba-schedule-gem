@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["philiplai217@gmail.com"]
   spec.description   = %q{nba scores and schedule cli}
   spec.summary       = %q{shows nba scores and schedule}
-  spec.homepage      = "https://github.com/plai217"
+  spec.homepage      = "https://github.com/plai217/nba-schedule-gem"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.executables   = ["nbascores"]
